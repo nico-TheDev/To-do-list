@@ -1,0 +1,270 @@
+*,
+*::before,
+*::after{
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    line-height: 1.5;
+    font-family: 'Shadows Into Light', cursive;
+    background:linear-gradient(rgba(black,0.4)),url(../bg.jpg) no-repeat center/cover;
+}
+
+.note{
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    width: 400px;
+    height: 550px;
+    background-color: white;
+    transform: translateX(-50%);
+    box-shadow: 10px 15px 1rem rgba(black,1);
+    border-radius: 2px;
+    backface-visibility: hidden;
+    
+
+    &__coverTitle{
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform:translateX(-50%);
+        backface-visibility: hidden;
+        padding: 0.5rem;
+        outline: 1px dashed currentColor;
+        color: #c3bac5;
+        background-image: url(./leather.jpg);
+        background-size: cover;
+        box-shadow: 0 0 1rem rgba(black,1);   
+        transition: 500ms ease 500ms;
+        font-family: 'Merriweather',sans-serif;
+        text-transform: uppercase;
+    }
+
+    &__sew{
+        width: 90%;
+        height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border: 1px dashed #c3bac5;
+    }
+
+    &__cover{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(145, 70, 43);
+        perspective: 100rem;
+        transform-origin: left;
+        transition: 1s ease 500ms;
+        background-image: url(../leather.jpg);
+        background-size: cover;
+        border-radius: 2px;
+        box-shadow: inset 0 0 1rem rgba(black,0.4),
+                    inset 0 0 2rem rgba(black,0.6),
+                    inset -5px -5px 3rem rgba(black,0.4);
+        z-index: 3;
+        cursor: pointer;        
+    }
+
+    &__strap{
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform-origin: right;
+        width: 130px;
+        height: 40px;
+        background-image: url(../leather.jpg);
+        background-size: cover;
+        border-radius: 20px 3px 3px 20px;
+        box-shadow: 0 0 2rem rgba(black,1);
+        perspective: 100rem;
+        transition: 500ms ease;
+        z-index: 5;
+        box-sizing: content-box;
+        border-right: 5px solid transparent;
+        // transform: rotateY(180deg);
+        cursor: pointer;        
+
+        &::before{
+            content:'';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 95%;
+            height: 85%;
+            transform: translateY(-50%);
+            border-radius: 20px 0 0 20px;
+            border: 1px dashed #c3bac5;
+        }
+
+    }
+
+    &__list{
+        width: 100%;
+        height: 100%;
+        background-image: url(../paper.jpg);
+        background-size: cover;
+        padding: 1rem;
+        text-align: center;
+        box-shadow: inset -5px -5px 3rem rgba(#c23616,0.3),
+                    inset -5px -5px 4rem rgba(#c23616,0.2);
+
+        // overflow-y: scroll;
+    }
+
+    &__title{
+        font-size: 1.4rem;
+    }
+
+    &:hover &__cover{
+        // transform: rotateY(-180deg);
+        cursor: pointer;
+    }
+
+    &:hover &__strap{
+        // transform: rotateY(180deg);
+    }
+ 
+}
+
+
+.todo{
+    width: 100%;
+    display: grid;
+}
+
+.item{
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr max-content; 
+    width: 100%;
+    justify-content: space-between;
+
+    font-size: 1.3rem;
+    list-style-type: square;
+}
+
+.theNote{
+    display: inline-block;
+}
+
+.buttons{
+    z-index: 1;
+}
+.check,.delete,.edit{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 300ms;
+    box-sizing: content-box;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    &:hover{
+        background-color: white;
+
+    }
+}
+
+.check{
+    color: green;
+}
+
+.delete{
+    color: red;
+}
+
+.edit{
+    color: blue;
+}
+
+.input-field{
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    padding: 0 1rem;
+
+    button{
+        display: inline-block;
+        border: none;
+        padding: 0.5rem 1rem;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+}
+
+.chore{
+    flex: 1;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    border: none;
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+.add-chore{
+    &:hover{
+        background-color: green;
+        color: white;
+    }
+
+}
+
+.clear{
+    &:hover{
+        background-color: red;
+        color: white;
+    }
+}
+
+.icon{
+    z-index: 2;
+}
+
+
+// STATE CLASSES
+
+.finish{
+    text-decoration: line-through;
+    color: gray;
+}
+
+.goLast{
+    order: 9999;
+}
+
+.flipLeft{
+    transform: rotateY(-180deg);
+}
+
+.flipRight{
+    transform: rotateY(180deg);
+}
+
+.fade{
+    opacity: 0;
+}
+
+@keyframes flipRight{
+    from{transform: rotateY(0);}
+    to{transform: rotateY(180deg);}
+}

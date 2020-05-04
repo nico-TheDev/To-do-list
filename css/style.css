@@ -1,0 +1,310 @@
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  line-height: 1.5;
+  font-family: 'Shadows Into Light', cursive;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4))), url(../bg.jpg) no-repeat center/cover;
+  background: linear-gradient(rgba(0, 0, 0, 0.4)), url(../bg.jpg) no-repeat center/cover;
+}
+
+.note {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  width: 400px;
+  height: 550px;
+  background-color: white;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-box-shadow: 10px 15px 1rem black;
+          box-shadow: 10px 15px 1rem black;
+  border-radius: 2px;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.note__coverTitle {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  padding: 0.5rem;
+  outline: 1px dashed currentColor;
+  color: #c3bac5;
+  background-image: url(./leather.jpg);
+  background-size: cover;
+  -webkit-box-shadow: 0 0 1rem black;
+          box-shadow: 0 0 1rem black;
+  -webkit-transition: 500ms ease 500ms;
+  transition: 500ms ease 500ms;
+  font-family: 'Merriweather',sans-serif;
+  text-transform: uppercase;
+}
+
+.note__sew {
+  width: 90%;
+  height: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border: 1px dashed #c3bac5;
+}
+
+.note__cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #91462b;
+  -webkit-perspective: 100rem;
+          perspective: 100rem;
+  -webkit-transform-origin: left;
+          transform-origin: left;
+  -webkit-transition: 1s ease 500ms;
+  transition: 1s ease 500ms;
+  background-image: url(../leather.jpg);
+  background-size: cover;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.4), inset 0 0 2rem rgba(0, 0, 0, 0.6), inset -5px -5px 3rem rgba(0, 0, 0, 0.4);
+          box-shadow: inset 0 0 1rem rgba(0, 0, 0, 0.4), inset 0 0 2rem rgba(0, 0, 0, 0.6), inset -5px -5px 3rem rgba(0, 0, 0, 0.4);
+  z-index: 3;
+  cursor: pointer;
+}
+
+.note__strap {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  -webkit-transform-origin: right;
+          transform-origin: right;
+  width: 130px;
+  height: 40px;
+  background-image: url(../leather.jpg);
+  background-size: cover;
+  border-radius: 20px 3px 3px 20px;
+  -webkit-box-shadow: 0 0 2rem black;
+          box-shadow: 0 0 2rem black;
+  -webkit-perspective: 100rem;
+          perspective: 100rem;
+  -webkit-transition: 500ms ease;
+  transition: 500ms ease;
+  z-index: 5;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  border-right: 5px solid transparent;
+  cursor: pointer;
+}
+
+.note__strap::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 95%;
+  height: 85%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  border-radius: 20px 0 0 20px;
+  border: 1px dashed #c3bac5;
+}
+
+.note__list {
+  width: 100%;
+  height: 100%;
+  background-image: url(../paper.jpg);
+  background-size: cover;
+  padding: 1rem;
+  text-align: center;
+  -webkit-box-shadow: inset -5px -5px 3rem rgba(194, 54, 22, 0.3), inset -5px -5px 4rem rgba(194, 54, 22, 0.2);
+          box-shadow: inset -5px -5px 3rem rgba(194, 54, 22, 0.3), inset -5px -5px 4rem rgba(194, 54, 22, 0.2);
+}
+
+.note__title {
+  font-size: 1.4rem;
+}
+
+.note:hover .note__cover {
+  cursor: pointer;
+}
+
+.todo {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+}
+
+.item {
+  text-align: left;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr max-content;
+      grid-template-columns: 1fr -webkit-max-content;
+      grid-template-columns: 1fr max-content;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 1.3rem;
+  list-style-type: square;
+}
+
+.theNote {
+  display: inline-block;
+}
+
+.buttons {
+  z-index: 1;
+}
+
+.check, .delete, .edit {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  border-radius: 50%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 4;
+}
+
+.check:hover, .delete:hover, .edit:hover {
+  background-color: white;
+}
+
+.check {
+  color: green;
+}
+
+.delete {
+  color: red;
+}
+
+.edit {
+  color: blue;
+}
+
+.input-field {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 1rem;
+}
+
+.input-field button {
+  display: inline-block;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.chore {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  border: none;
+  background-color: transparent;
+  border: 1px solid white;
+}
+
+.add-chore:hover {
+  background-color: green;
+  color: white;
+}
+
+.clear:hover {
+  background-color: red;
+  color: white;
+}
+
+.icon {
+  z-index: 2;
+}
+
+.finish {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.goLast {
+  -webkit-box-ordinal-group: 10000;
+      -ms-flex-order: 9999;
+          order: 9999;
+}
+
+.flipLeft {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+.flipRight {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.fade {
+  opacity: 0;
+}
+
+@-webkit-keyframes flipRight {
+  from {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  to {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+  }
+}
+
+@keyframes flipRight {
+  from {
+    -webkit-transform: rotateY(0);
+            transform: rotateY(0);
+  }
+  to {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+  }
+}
+/*# sourceMappingURL=style.css.map */
