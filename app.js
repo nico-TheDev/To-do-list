@@ -31,7 +31,9 @@ editItem = document.getElementsByClassName('edit');
 
 cover = document.querySelector('.note__cover');
 strap = document.querySelector('.note__strap')
+
 // RESETS
+alert('click the book');
 todoList.firstElementChild.style.display = 'none';
 update();
 
