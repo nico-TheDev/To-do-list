@@ -226,13 +226,16 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: 0;
 }
 
 .input-field button {
   display: inline-block;
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   font-size: 1.1rem;
   cursor: pointer;
 }

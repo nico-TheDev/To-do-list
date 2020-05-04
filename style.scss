@@ -202,12 +202,13 @@ body{
     width: 90%;
     margin: 0 auto;
     display: flex;
+    justify-content: space-between;
     padding: 0;
 
     button{
         display: inline-block;
         border: none;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem;
         font-size: 1.1rem;
         cursor: pointer;
     }
