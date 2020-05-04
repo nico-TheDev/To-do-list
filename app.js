@@ -17,6 +17,8 @@ let todoList,item,itemContent,addItem,clearAll,crossItem,deleteItem,editItem,inp
 
 let cover,strap;
 
+let count = 1;
+
 todoList = document.querySelector('.todo');
 item = document.querySelector('.item');
 itemContent = document.querySelector('.theNote');
@@ -47,6 +49,7 @@ function addListItem(){
     else{
         update();
         clonedItem = item.cloneNode(true);
+        localStorage.setItem(count,inputContent.value);
         clonedItem.firstElementChild.textContent = inputContent.value;
         clonedItem.style.display = 'grid';
         todoList.appendChild(clonedItem);
@@ -56,6 +59,8 @@ function addListItem(){
         inputContent.value = '';
         crossItem =  document.getElementsByClassName('check');
         update();
+        count++;
+        console.log(localStorage);
     }
    
 }
@@ -63,6 +68,7 @@ function addListItem(){
 
 function clearAllItem(){
     todoList.innerHTML = '';
+    localStorage.clear();
 }
 
 
