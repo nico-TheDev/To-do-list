@@ -1,122 +1,143 @@
-//will get the value from the input
-//if add -> will add a list item to the ul with all the properties 
-// clone the firstElement with all the elements inside it 
-//display the first element inside it as none as a reference
-//if clear . the text content of the list will be an empty string
+const todoList = document.querySelector(".todo"),
+    cover = document.querySelector(".note__cover"),
+    strap = document.querySelector(".note__strap"),
+    addBtn = document.querySelector(".add-chore"),
+    clearBtn = document.querySelector(".clear"),
+    inputField = document.querySelector(".chore");
 
-// check, if checked the text decoration will be strike through
-//delete , remove the current item
-//edit, remove the current item , 
-//get the value of that item 
-//set the value of the input to that value
-
-
-// GET THE ELEMENTS FROM THE DOCUMENT OBJECT
-
-let todoList,item,itemContent,addItem,clearAll,crossItem,deleteItem,editItem,inputContent,clonedItem;
-
-let cover,strap;
-
-let count = 1;
-
-todoList = document.querySelector('.todo');
-item = document.querySelector('.item');
-itemContent = document.querySelector('.theNote');
-inputContent = document.querySelector('.chore');
-
-addItem = document.querySelector('.add-chore');
-clearAll = document.querySelector('.clear');
-// update every time
-crossItem =  document.getElementsByClassName('check');
-deleteItem = document.getElementsByClassName('delete');
-editItem = document.getElementsByClassName('edit');
-
-cover = document.querySelector('.note__cover');
-strap = document.querySelector('.note__strap')
-
-// RESETS
-alert('click the book');
-todoList.firstElementChild.style.display = 'none';
-update();
+let choreList;
+// COVER INTERACTIONS
+cover.addEventListener("click", function () {
+    if (strap.className.includes("flipRight")) {
+        cover.classList.toggle("flipLeft");
+        document.querySelector(".note__coverTitle").classList.toggle("fade");
+    } else {
+        alert("Remove the strap first , you dummy!");
+    }
+});
+strap.addEventListener("click", function () {
+    strap.classList.toggle("flipRight");
+});
 
 // FUNCTIONS
 
-function addListItem(){
+function addToList(chore) {
+    // get the input value from the input
+    addToStorage(chore);
 
-    if(inputContent.value === ''){
-        alert('Empty Input');
+    if (chore === "") {
+        const message = document.createElement("li");
+        message.className = "warning";
+        message.textContent = "Please fill the input field";
+        todoList.insertAdjacentElement("beforebegin", message);
+        setTimeout(() => {
+            message.remove();
+        }, 2000);
+    } else {
+        // add it to the list
+        const markup = `
+    <li class="item">
+        <span class="theNote">${chore}</span>
+        <div class="buttons">
+            <button class="check"><i class="fas fa-check"></i></button>
+            <button class="delete"><i class="fas fa-times"></i></button>
+            <button class="edit"><i class="fas fa-pen"></i></button>
+        </div>
+    </li>
+ `;
+
+        todoList.insertAdjacentHTML("beforeend", markup);
+        //clear the input
+        inputField.value = "";
     }
-    else{
-        update();
-        clonedItem = item.cloneNode(true);
-        localStorage.setItem(count,inputContent.value);
-        clonedItem.firstElementChild.textContent = inputContent.value;
-        clonedItem.style.display = 'grid';
-        todoList.appendChild(clonedItem);
-        console.log(clonedItem);
-        console.log(inputContent.value);
-    
-        inputContent.value = '';
-        crossItem =  document.getElementsByClassName('check');
-        update();
-        count++;
-        console.log(localStorage);
-    }
-   
 }
 
-
-function clearAllItem(){
-    todoList.innerHTML = '';
-    localStorage.clear();
+function checkChore(chore) {
+    chore.classList.toggle("finish");
+    chore.parentNode.classList.toggle("goLast");
 }
 
-
-// BUTTON EVENTS
-
-addItem.addEventListener('click',addListItem);
-clearAll.addEventListener('click',clearAllItem);
-
-function update(){
-
-    for(let i = 0; i < crossItem.length;i++){
-        crossItem[i].addEventListener('click',function(){
-            console.log(crossItem[i].parentElement.parentElement);
-            crossItem[i].parentElement.parentElement.classList.toggle('goLast');
-            crossItem[i].parentElement.previousElementSibling.classList.toggle('finish');
-        });
-        
-            
-    };
-
-
-    for(let i = 0; i < deleteItem.length; i++){
-        deleteItem[i].addEventListener('click',function(){
-            deleteItem[i].parentElement.parentElement.style.display = 'none';
-        });
-    }
-
-    for(let i = 0; i < editItem.length; i++){
-        editItem[i].addEventListener('click',function(){
-            inputContent.value = editItem[i].parentElement.previousElementSibling.textContent;
-            editItem[i].parentElement.parentElement.style.display = 'none';
-        });
-    }
-
+function removeChore(chore) {
+    chore.remove();
+    choreList.forEach((el,i) =>{
+        if (el === chore.firstElementChild.textContent){
+            choreList.splice(i,1);
+            saveToStorage();
+        }
+    });
 }
 
+function editChore(chore) {
+    chore.remove();
+    inputField.value = chore.firstElementChild.textContent;
+    choreList.forEach((el,i) =>{
+        if (el === chore.firstElementChild.textContent){
+            choreList.splice(i,1);
+            saveToStorage();
+        }
+    });
+}
 
-cover.addEventListener('click',function(){
+function clearList() {
+    todoList.innerHTML = "";
+    localStorage.removeItem('choreList');
+}
 
-    if (strap.className.includes('flipRight')){
-        cover.classList.toggle('flipLeft');
-        document.querySelector('.note__coverTitle').classList.toggle('fade');
+function restoreList() {
+    console.log("Dom LOADED");
+    if (localStorage.getItem("choreList")) {
+        choreList = JSON.parse(localStorage.getItem("choreList"));
+        choreList.forEach((chore) => {
+            const markup = `
+            <li class="item">
+                <span class="theNote">${chore}</span>
+                <div class="buttons">
+                    <button class="check"><i class="fas fa-check"></i></button>
+                    <button class="delete"><i class="fas fa-times"></i></button>
+                    <button class="edit"><i class="fas fa-pen"></i></button>
+                </div>
+            </li>
+         `;
+
+            todoList.insertAdjacentHTML("beforeend", markup);
+        });
+    } else {
+        choreList = [];
     }
-    else{
-        alert('Remove the strap first , you dummy!');
-    }
+}
 
+function addToStorage(chore) {
+    choreList.push(chore);
+    saveToStorage();
+}
+
+function saveToStorage() {
+    localStorage.setItem("choreList", JSON.stringify(choreList));
+}
+
+// EVENT LISTENERS for the list
+
+addBtn.addEventListener("click", ()=>{
+    if(inputField.value !== '' ) addToList(inputField.value);
 });
-strap.addEventListener('click',function(){
-    strap.classList.toggle('flipRight');
+window.addEventListener("keypress", (e) => {
+    if (e.key === 13 || e.which === 13) {
+        addToList(inputField.value);
+    }
+});
+clearBtn.addEventListener("click", clearList);
+
+document.addEventListener("DOMContentLoaded", restoreList);
+
+todoList.addEventListener("click", (e) => {
+    if (e.target.closest(".check")) {
+        const chore = e.target.parentNode.previousElementSibling;
+        checkChore(chore);
+    } else if (e.target.closest(".delete")) {
+        const chore = e.target.parentNode.parentNode;
+        removeChore(chore);
+    } else if (e.target.closest(".edit")) {
+        const chore = e.target.parentNode.parentNode;
+        editChore(chore);
+    }
 });
